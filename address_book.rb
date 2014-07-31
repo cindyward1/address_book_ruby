@@ -1,5 +1,7 @@
 require "./lib/contact"
 require "./lib/phone"
+require "./lib/email"
+require "./lib/address"
 
 def address_book
 
@@ -82,7 +84,33 @@ def list_contacts
     else
       @current_contact_index -= 1
       puts "Your current contact is now #{Contact.by_index(@current_contact_index).contact_name}"
+      puts "Main options:"
+      puts "   m = return to main menu (this menu)"
+      puts "   x = exit the program"
+      puts "Contact operations:"
+      puts "   l = list all information about a contact"
+      puts "   e = edit information about this contact"
+      puts "  -c = delete this contact"
       puts "\n"
+      option = gets.chomp
+      if option == "l"
+        list_phones
+        list_emails
+        list_addresses
+      elsif option == "e"
+        edit_contact_information
+      elsif option == "-c"
+        delete_contact
+      elsif option == "m"
+        main_menu
+      elsif option == "x"
+        puts "End of Address Book application"
+        puts  "\n"
+        exit
+      else
+        puts "Invalid option, please try again"
+        puts "\n"
+      end
     end
   end
 end
@@ -108,15 +136,60 @@ def list_phones
 end
 
 def add_email
+  puts "Enter an e-mail address for your contact #{Contact.by_index(@current_contact_index).contact_name}"
+  email_address = gets.chomp
+  new_email = Email.new(email_address)
+  Contact.by_index(@current_contact_index).add_email(new_email)
 end
 
 def list_emails
+  if Contact.by_index(@current_contact_index).email.empty?
+    puts "No email addresses for your contact #{Contact.by_index(@current_contact_index).contact_name}"
+    puts "\n"
+  else
+    puts "Email addresses for your contact #{Contact.by_index(@current_contact_index).contact_name}"
+    Contact.by_index(@current_contact_index).email.each_with_index do |email, index|
+      puts "#{index+1}. #{email.email_address}"
+    end
+    puts "\n"
+  end
 end
 
 def add_address
+  puts "Enter a street address for your contact #{Contact.by_index(@current_contact_index).contact_name}"
+  street_address = gets.chomp
+  new_address = Address.new(street_address)
+  Contact.by_index(@current_contact_index).add_address(new_address)
 end
 
 def list_addresses
+  if Contact.by_index(@current_contact_index).address.empty?
+    puts "No street addresses for your contact #{Contact.by_index(@current_contact_index).contact_name}"
+    puts "\n"
+  else
+    puts "Street addresses for your contact #{Contact.by_index(@current_contact_index).contact_name}"
+    Contact.by_index(@current_contact_index).address.each_with_index do |address, index|
+      puts "#{index+1}. #{address.street_address}"
+    end
+    puts "\n"
+  end
+end
+
+def edit_contact_information
+end
+
+def delete_contact
+  puts "Enter YES if you REALLY want to delete #{Contact.by_index(@current_contact_index).contact_name}"
+  option = ""
+  option = gets.chomp
+  if option == "YES"
+    puts "Contact #{Contact.by_index(@current_contact_index).contact_name} deleted"
+    puts "\n"
+    Contact.all.delete_at(@current_contact_index)
+  else
+    puts "Nothing was deleted"
+    puts "\n"
+  end
 end
 
 address_book
