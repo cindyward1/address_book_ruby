@@ -6,7 +6,7 @@ class Contact
     @@all_contacts = []
   end
 
-  def Contact.by_index (index)
+  def Contact.by_index(index)
     @@all_contacts[index]
   end
 
@@ -18,8 +18,8 @@ class Contact
     @@all_contacts << self
   end
 
-  def initialize (contact_name)
-    @contact_name = contact_name
+  def initialize(input_contact_name)
+    @contact_name = input_contact_name
     @phone = []
     @email = []
     @address = []

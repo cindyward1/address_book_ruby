@@ -1,7 +1,7 @@
 class Phone
 
-  def initialize (phone_number)
-    @phone_number = phone_number
+  def initialize (input_phone_number)
+    @phone_number = input_phone_number
   end
 
   def phone_number
