@@ -8,4 +8,8 @@ class Phone
     @phone_number
   end
 
+  def change_phone_number(new_phone)
+    @phone_number = new_phone
+  end
+
 end

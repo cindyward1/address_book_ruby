@@ -8,4 +8,8 @@ class Email
     @email_address
   end
 
+  def change_email_address(new_email)
+    @email_address = new_email
+  end
+
 end

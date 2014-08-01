@@ -8,4 +8,8 @@ class Address
     @street_address
   end
 
+  def change_street_address(new_address)
+    @street_address = new_address
+  end
+
 end
